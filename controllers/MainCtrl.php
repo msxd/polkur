@@ -6,12 +6,7 @@
 
 class MainCtrl extends Controller{
 
-	private function loadModel($modelClassName){
-		if(file_exists('models/'.$modelClassName.'.php')){
-			include_once('models/'.$modelClassName.'.php');
-			@$this->$modelClassName  = new $modelClassName();
-		}
-	}
+	public $erros = array();
 
 	public function comments() {
 
@@ -50,23 +45,50 @@ class MainCtrl extends Controller{
 
 			$this->page->setTitle('Post info');
 			$this->page->addStyle('stylesheet.css');
+			$this->page->addscript('js.js');
 
 			$this->loadModel('post');
 			$this->loadModel('comment');
 
 			$post_info = $this->post->getPost($_GET['post_id']);
-			$comments = $this->comment->getCommentsForPost($post_info->post_id);
-//				foreach($comments as $key => $comment){
-//					if($comment->user_id !== 0 && $comment->user_id == $this->user->getId()){
 
-//					}
-//				}
+			if(!empty($_POST)){
+				if(empty($_POST['user']))
+					$this->erros['user'] = "Please enter your name";
+				if(empty($_POST['comment']))
+					$this->erros['comment'] = "Please enter your comment";
+				if(!empty($_POST['comment_id']) && !$this->user->hasComment($_POST['comment_id']))
+					$this->erros['comment'] = "Please Fuck yourself";
+
+				if(empty($this->erros)){
+					if(isset($_POST['comment_id']))
+						$this->comment->editComment($_POST);
+					else{
+						$comment_id = $this->comment->addComment($_POST,$post_info->post_id);
+						array_push($_SESSION['comments'],$comment_id);
+					}
+				}else
+					$data2['errors'] = $this->erros;
+
+			}
+
+			$comments = $this->comment->getCommentsForPost($post_info->post_id);
 			$data = array();
+
+			foreach($comments as $key => $comment){
+				$comments[$key]->editable = false;
+				if($this->user->hasComment($comment->comment_id))
+					$comments[$key]->editable = true;
+			}
+
 			$data['post'] = $post_info;
 			$data['comments'] = $comments;
 
+			$data2['action'] = $this->url->link('MainCtrl/view',"post_id=$post_info->post_id");
+
+
 			$this->page->addView('post/view',$data,'column_right');
-			$this->page->addView('comment/create',$data,'column_right');
+			$this->page->addView('comment/create',$data2,'column_right');
 
 			echo $this->page->render();
 

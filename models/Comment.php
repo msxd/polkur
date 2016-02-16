@@ -7,4 +7,17 @@ class Comment extends model{
 
         return $posts;
     }
+
+    public function addComment($comment,$post_id){
+        $sql = "INSERT INTO `".DB_PREFIX."comment` (user,comment,post_id) VALUES('".$comment['user']."','".$comment['comment']."','".$post_id."')";
+
+        $this->db->query($sql);
+        return $this->db->lastInsertId('comment_id');
+    }
+
+    public function editComment($comment){
+        $sql = "UPDATE `".DB_PREFIX."comment` SET user='".$comment['user']."',comment='".$comment['comment']."' WHERE comment_id=".$_POST['comment_id'];
+        $this->db->query($sql);
+        return $this->db->lastInsertId('comment_id');
+    }
 }

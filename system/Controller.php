@@ -1,8 +1,5 @@
 <?php
 class Controller{
-//    protected $page;
-//    protected $db;
-//    private $model = array();
 
     public function __construct() {
 
@@ -18,5 +15,12 @@ class Controller{
             }
         }
 
+    }
+
+    public function loadModel($modelClassName){
+        if(file_exists('models/'.$modelClassName.'.php')){
+            include_once('models/'.$modelClassName.'.php');
+            @$this->$modelClassName  = new $modelClassName();
+        }
     }
 }

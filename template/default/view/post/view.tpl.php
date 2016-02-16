@@ -5,11 +5,13 @@
                 <?php echo $post->text?>
             </div>
             <div class="panel-footer ">
+                <?php var_dump(get_defined_vars())?>
+
                 <?php foreach($comments as $comment){?>
                     <div class="comment">
                         <div class="col-xs-12">
-                        <?php echo $comment->user?>
-                            <span class="pull-right"><?php echo $comment->create_time?></span>
+                        User : <?php echo $comment->user?>
+                            <span class="pull-right">Date : <?php echo $comment->create_time?><?php if($comment->editable) { ?><span data-user="<?php echo $comment->user?>" data-comment="<?php echo $comment->comment?>" data-comment_id="<?php echo $comment->comment_id?>"  class="glyphicon glyphicon-pencil edit-comment"></span><?php } ?></span>
                         </div>
                         <div class="col-xs-12 comment-content">
                         <?php echo $comment->comment?>

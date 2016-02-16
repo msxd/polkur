@@ -16,6 +16,9 @@
         <?php foreach($styles as $style) {?>
             <link rel="stylesheet" href="<?php echo $style?>" />
         <?php } ?>
+        <?php foreach($scripts as $script) {?>
+            <script src="<?php echo $script?>"></script>
+        <?php } ?>
 
     </head>
     <body>
