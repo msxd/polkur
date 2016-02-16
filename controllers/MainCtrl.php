@@ -35,8 +35,8 @@ class MainCtrl extends Controller{
 
 		$data['posts'] = $posts;
 
-		$view = $this->view->load('post/list',$data);
-		$this->page->addView($view,'column_right');
+
+		$this->page->addView('post/list',$data,'column_right');
 		echo $this->page->render();
 	}
 
@@ -61,7 +61,7 @@ class MainCtrl extends Controller{
 					$this->erros['comment'] = "Please Fuck yourself";
 
 				if(empty($this->erros)){
-					if(isset($_POST['comment_id']))
+					if(isset($_POST['comment_id']) && !empty($_POST['comment_id']))
 						$this->comment->editComment($_POST);
 					else{
 						$comment_id = $this->comment->addComment($_POST,$post_info->post_id);

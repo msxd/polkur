@@ -57,7 +57,6 @@ if ( isset($_GET['controller']) ) {
         $controller->$action();
     }else{
         $controller = new $controller();
-        $action = $_GET['action'];
         $controller->index();
     }
 }else {
