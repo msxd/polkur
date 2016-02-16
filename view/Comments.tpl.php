@@ -3,16 +3,11 @@
 	<div class="row">
 
 		<div class="col-sm-6">
-			<h2><?=$text;?>
-		</div>
-
-		<div class="clearfix"></div>
-		<div class="col-sm-6">
-			<p><?=$author;?></p>
+			<h2><?php echo $title; ?>
 		</div>
 
 		<div class="col-sm-6">
-			<p><?=$time;?></p>
+			<p><?php echo $info; ?></p>
 		</div>
 	</div>
 </div>

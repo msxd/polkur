@@ -24,7 +24,6 @@
                 </div>
             </div>
         </div>
-
         <?php foreach ($views as $view) echo $view; ?>
 
     </body>

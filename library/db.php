@@ -1,23 +1,20 @@
 <?php
-/**
- * To jest klasa odpowiedzialna za wykonywanie zapytań do bazy danych
- */
+
 class DB {
 
 	private $pdo;
 
-	/* nawiązanie połączenia PDO z bazą danych w konstruktorze */
-	public function __construct($dbtype, $dbhost, $dbname, $dbuser, $dbpass) {
+	public function __construct() {
 
-		$dsn = "$dbtype:host=$dbhost;dbname=$dbname";
-		$this->pdo = new \PDO($dsn, $dbuser, $dbpass);
+		$dsn = DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME;
+		$this->pdo = new \PDO($dsn, DB_USER, DB_PASS);
 		$this->pdo->exec("SET NAMES 'utf8';");
 	}
 
-	/* wykonanie zapytania PDO */
+	
 	public function query($query, $parameters = array()) {
 
-//		print_r($query); print_r($parameters);
+		print_r($query); print_r($parameters);
 
 		$statement = $this->pdo->prepare($query);
 
@@ -32,7 +29,7 @@ class DB {
         }
 	}
 
-	public function lastInsertId($name = NULL) {
+	public function lastInsertId($name) {
 		return $this->pdo->lastInsertId($name);
 	}
 }

@@ -1,9 +1,8 @@
 <?php
 
-$dbtype = "mysql";
-$dbhost = "localhost";
-$dbname = "pai";
-$dbuser = "root";
-$dbpass = "";
-
-$theme = 'Page';
+define('DB_TYPE',"mysql");
+define('DB_HOST',"localhost");
+define('DB_NAME',"pai");
+define('DB_USER',"root");
+define('DB_PASS',"");
+define('THEME',"Page");

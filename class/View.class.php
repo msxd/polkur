@@ -1,37 +1,33 @@
 <?php
 /**
- * Klasa ta odpowiada za przetworzenie pliku widoku wraz z przekazanymi danymi i udostępnienie go do wyrenderowania
+ * Класс отвечает за обработку файлов видов и переданных им данным, так же отвечает за рендер
  */
 class View {
 
 	private $output = '';
 	
 	/*
-	 * $templateFileName - nazwa pliku z widokiem
-	 * $variables - tablica z danymi do wygenerowania widoku (nazwa_zmiennej => wartość)
+	 * $templateFileName - имя файла с виьюхой
+	 * $variables - массив данных (имя переменной => значение)
 	 */
 	function __construct($templateFileName, $variables = array()) {
 		
-		/* utworzenie zmiennych lokalnych dostępnych dla pliku widoku */
+		/* создание локальных переменных доступных для файла вида */
 		extract($variables);
 
-		/* rozpoczęcie rejestrowania renderu widoku do bufora (zamiast na wyjście, na wyjście wyślemy go na sam koniec dziłania) */
         ob_start();
 
-        /* renderowanie widoku */
+        /* рендер */
         $filename = INDEX_DIR."/view/$templateFileName.tpl.php";
         include($filename);
 
-        /* przypisanie renderu widoku do zmiennej */
+        /* присвоение рендера в переменную */
         $this->output = ob_get_contents();
 
-        /* zamknięcie rejestru do bufora i przywrócenie normalnego dziąłania skryptów */
+        /* восстановление нормальной работі скрипта */
         ob_end_clean();
 	}
-
-	/**
-	 * zwraca wyrenderowany widok, jest to wykorzystanie specjalnej funkcji, która jest wywoływana gdy obiekt jest wykorzystany w funkcjach typu echo() lub przy konkatenacji tekstów
-	 */
+	
 	public function __toString() {
 		return $this->output;
 	}

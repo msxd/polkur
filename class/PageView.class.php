@@ -1,6 +1,6 @@
 <?php
 /**
- * Klasa odpowiedzialna za render strony oraz poszczególnych jej elementów
+ * Класс отвечает за рендер страницы а так же конкретных ее елементов
  */
 class PageView {
 
@@ -15,9 +15,7 @@ class PageView {
 		$this->views[] = $view;
 	}
 
-	/**
-	 * zwraca wyrenderowany widok, jest to wykorzystanie specjalnej funkcji, która jest wywoływana gdy obiekt jest wykorzystany w funkcjach typu echo() lub przy konkatenacji tekstów
-	 */
+	
 	public function __toString() {
 		
 		$views = $this->views;
