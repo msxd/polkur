@@ -5,8 +5,6 @@
                 <?php echo $post->text?>
             </div>
             <div class="panel-footer ">
-                <?php var_dump(get_defined_vars())?>
-
                 <?php foreach($comments as $comment){?>
                     <div class="comment">
                         <div class="col-xs-12">
