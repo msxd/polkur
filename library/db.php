@@ -14,16 +14,16 @@ class DB {
 	
 	public function query($query, $parameters = array()) {
 
-		print_r($query); print_r($parameters);
+//		print_r($query); print_r($parameters);
 
 		$statement = $this->pdo->prepare($query);
-
-		foreach($parameters as $key => &$value) {
-            $statement->bindParam($key, $value);
-        }
-
+		if(!empty($parameters)){
+			foreach($parameters as $key => &$value) {
+				$statement->bindParam($key, $value);
+			}
+		}
         if (false !== $statement->execute()) {
-        	return $statement;
+			return $statement;
         } else {
         	throw new ErrorException(print_r($statement->errorInfo(), true));
         }

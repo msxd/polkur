@@ -18,8 +18,8 @@ $db = new DB($dbtype, $dbhost, $dbname, $dbuser, $dbpass);
 
 echo "Creates table 'comments'...";
 $query = "
-CREATE TABLE IF NOT EXISTS `comments` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `comment` (
+  `comment_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user` varchar(255) NOT NULL,
   `comment` text NOT NULL,

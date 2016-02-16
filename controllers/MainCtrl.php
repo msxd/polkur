@@ -26,8 +26,14 @@ class MainCtrl extends Controller{
 	}
 
 	public function posts(){
-		var_dump($this->db->query("SELECT FROM `comments`"));
+
 		$this->loadModel('post');
-//		var_dump($this->post->getPosts());
+		$posts = $this->post->getPosts();
+
+		$data['posts'] = $posts;
+
+		$view = $this->view->load('posts',$data);
+		$this->page->addView($view);
+		echo $this->page->render();
 	}
 }

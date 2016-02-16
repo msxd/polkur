@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 define('INDEX_DIR', __DIR__);
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -45,10 +45,8 @@ spl_autoload_register("autoload");
 
 include_once('config.php');
 
-$page = new PageView(THEME);
-//$db = new DB($dbtype, $dbhost, $dbname, $dbuser, $dbpass);
-//$controller = new Controller($page, );
 
+$page = new Page();
 
 if ( isset($_GET['controller']) ) {
     if (isset($_GET['action']) ) {
@@ -72,4 +70,8 @@ if ( isset($_GET['controller']) ) {
         $controller->index();
     }
 }
-echo $page;
+
+
+
+
+
