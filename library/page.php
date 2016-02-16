@@ -6,6 +6,9 @@ class Page {
 
 	public $template;
 	private $views = array();
+	private $title = 'Title';
+	private $styles = array();
+	private $scripts = array();
 
 	public function __construct() {
 		if(isset($_SESSION['template'])){
@@ -16,27 +19,31 @@ class Page {
 		}
 	}
 
-	public function addView(View $view) {
-		$this->views[$view->file] = $view;
+	public function addView($templateView, $variables = array(),$placeholder, $template = null) {
+
+		$view = new View();
+		$view = $view->load($templateView,$variables,$template);
+
+		if(!isset($this->views[$placeholder]))
+			$this->views[$placeholder] = array();
+		$this->views[$placeholder][] = $view;
+	}
+
+	public function addStyle($style) {
+		$this->styles[] = $filename = TEMPLATE_FOLDER."/$this->template/".TEMPLATE_CSS_FOLDER."/$style";
+	}
+
+	public function addScript($script) {
+		$this->scripts[] = $filename = TEMPLATE_FOLDER."/$this->template/".TEMPLATE_JS_FOLDER."/$script";
 	}
 
 	
-//	public function __toString() {
-//
-//		$views = $this->views;
-//		$filename = INDEX_DIR."/view/". $this->template . ".tpl.php";
-//
-//		ob_start();
-//        include($filename);
-//        $output = ob_get_contents();
-//        ob_end_clean();
-//
-//        return $output;
-//	}
-
 	public function render(){
 		$views = $this->views;
-		$filename = INDEX_DIR."/view/$this->template/index.tpl.php";
+		$title = $this->title;
+		$styles = $this->styles;
+		$scripts = $this->scripts;
+		$filename = INDEX_DIR."/".TEMPLATE_FOLDER."/$this->template/".TEMPLATE_VIEW_FOLDER."/index.tpl.php";
 
 		ob_start();
         include($filename);
@@ -48,5 +55,9 @@ class Page {
 
 	public function setTemplate($template){
 		$this->template = $template;
+	}
+
+	public function setTitle($title){
+		$this->title = $title;
 	}
 }

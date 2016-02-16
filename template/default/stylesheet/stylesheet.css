@@ -1,0 +1,31 @@
+body{
+    background-color: #AFAFAF;
+}
+.navbar {
+     border-radius: 0;
+}
+
+.panel-default>.panel-heading{
+    background-color: #222;
+
+    color: #fff;
+}
+
+.panel-default{
+    border: 1px solid #000;
+}
+
+.post-info .comment{
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+.post-info .comment:last-child{
+    margin-bottom: 0;
+}
+
+.post-info .comment-content{
+    padding-top: 10px;
+    padding-left: 30px;
+}

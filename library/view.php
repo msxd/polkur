@@ -32,7 +32,7 @@ class View {
 		ob_start();
 
 		/* рендер */
-		$filename = INDEX_DIR."/view/$template/$templateView.tpl.php";
+		$filename = INDEX_DIR."/".TEMPLATE_FOLDER."/$template/".TEMPLATE_VIEW_FOLDER."/$templateView.tpl.php";
 		include($filename);
 
 		/* присвоение рендера в переменную */

@@ -49,17 +49,17 @@ include_once('config.php');
 $page = new Page();
 
 if ( isset($_GET['controller']) ) {
+    $controller = $_GET['controller'];
+
     if (isset($_GET['action']) ) {
-        $controller = new $_GET['controller']();
+        $controller = new $controller();
         $action = $_GET['action'];
         $controller->$action();
     }else{
-        $controller = new $_GET['controller']();
+        $controller = new $controller();
         $action = $_GET['action'];
         $controller->index();
     }
-	$controller = $_GET['controller'];
-	$controller->$action();
 }else {
 
     $controller = new MainCtrl();
